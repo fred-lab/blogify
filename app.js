@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const session = require("./config/session");
 const router = require("./routes/index");
+const { init } = require("./config/postgres");
 
 const app = express();
 
@@ -22,5 +23,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(session);
 
 app.use("/", router);
+
+// Connect to Postgres
+init();
 
 module.exports = app;
