@@ -1,11 +1,11 @@
-const bcrypt = require("bcryptjs");
+import bcrypt from "bcryptjs";
 
 /**
  * Hash a string
  * @param {string} value
  * @param {int} salt
  */
-const hash = async (value, salt = 10) => {
+const hash = async (value: string, salt = 10): Promise<string | boolean> => {
   try {
     return await bcrypt.hash(value, salt);
   } catch (error) {
@@ -13,6 +13,4 @@ const hash = async (value, salt = 10) => {
   }
 };
 
-module.exports = {
-  hash,
-};
+export { hash };

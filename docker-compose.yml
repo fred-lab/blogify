@@ -15,7 +15,7 @@ services:
     volumes:
       - ./:/home/docker:rw
     ports:
-      - ${PORT}:${PORT}
+      - ${APP_PORT}:${APP_PORT}
     command: "npm run dev"
 
   redis:

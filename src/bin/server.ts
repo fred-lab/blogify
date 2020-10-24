@@ -3,57 +3,35 @@
 /**
  * Module dependencies.
  */
+import App from "../app";
+import createDebug from "debug";
+import http from "http";
 
-const app = require("../app");
-const debug = require("debug")("blogify:server");
-const http = require("http");
+const debug = createDebug("blogify:server");
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || "3000");
-app.set("port", port);
+const port = process.env.APP_PORT || "3000";
 
 /**
  * Create HTTP server.
  */
-
-const server = http.createServer(app);
+const app = new App(port);
+const server = http.createServer(app.getApp());
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 
 /**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  const port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
-
-/**
  * Event listener for HTTP server "error" event.
  */
-
-function onError(error) {
+function onError(error: NodeJS.ErrnoException) {
   if (error.syscall !== "listen") {
     throw error;
   }
@@ -81,6 +59,8 @@ function onError(error) {
 
 function onListening() {
   const addr = server.address();
-  const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-  debug("Listening on " + bind);
+  if (addr) {
+    const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+    debug("Listening on " + bind);
+  }
 }

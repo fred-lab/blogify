@@ -21,6 +21,8 @@ RUN apk update \
   && ls -la \
   && echo -e '\033[0;31m' Install PM2 '\033[0m' \
   && npm install pm2 -g \
+  && echo -e '\033[0;31m' Install Typescript and ts-node '\033[0m' \
+  && npm install -g typescript ts-node\
   && apk del shadow \
   # Clean up apk cache folder and the virtuals folders
   && rm -rf /var/cache/apk/*

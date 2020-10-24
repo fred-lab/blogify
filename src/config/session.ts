@@ -1,13 +1,13 @@
-const session = require("express-session");
-const connectRedis = require("connect-redis");
-const redisClient = require("./redis");
+import session from "express-session";
+import connectRedis from "connect-redis";
+import redisClient from "./redis";
 
 // Configure Redis
 const RedisStore = connectRedis(session);
 
-module.exports = session({
+export default session({
   store: new RedisStore({ client: redisClient }),
-  secret: process.env.SECRET,
+  secret: process.env.SECRET!,
   resave: false,
   saveUninitialized: false,
   name: "sessionId",
