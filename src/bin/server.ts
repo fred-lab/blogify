@@ -6,13 +6,13 @@
 import App from "../app";
 import createDebug from "debug";
 import http from "http";
+import createDatabaseConnection from "../config/database";
 
 const debug = createDebug("blogify:server");
 
 /**
  * Get port from environment and store in Express.
  */
-
 const port = process.env.APP_PORT || "3000";
 
 /**
@@ -22,16 +22,26 @@ const app = new App(port);
 const server = http.createServer(app.getApp());
 
 /**
+ * Connect to database
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port);
-server.on("error", onError);
-server.on("listening", onListening);
+const start = async () => {
+  try {
+    await createDatabaseConnection();
+    debug("Database is connected on port " + process.env.POSTGRES_PORT);
+    server.listen(port);
+    server.on("error", onError);
+    server.on("listening", onListening);
+  } catch (error) {
+    debug(error);
+    process.exit(1);
+  }
+};
 
 /**
  * Event listener for HTTP server "error" event.
  */
-function onError(error: NodeJS.ErrnoException) {
+const onError = (error: NodeJS.ErrnoException) => {
   if (error.syscall !== "listen") {
     throw error;
   }
@@ -51,16 +61,20 @@ function onError(error: NodeJS.ErrnoException) {
     default:
       throw error;
   }
-}
+};
 
 /**
  * Event listener for HTTP server "listening" event.
  */
-
-function onListening() {
+const onListening = () => {
   const addr = server.address();
   if (addr) {
     const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-    debug("Listening on " + bind);
+    debug("App serveur is listening on " + bind);
   }
-}
+};
+
+/**
+ * Start the server
+ */
+start();

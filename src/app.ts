@@ -5,10 +5,7 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import session from "./config/session";
 import Router from "./routes/index";
-// import { init } from "./config/postgres";
-
-// Connect to Postgres
-// init();
+import "reflect-metadata";
 
 export default class App {
   private app = express();
