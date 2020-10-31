@@ -62,3 +62,5 @@ typings/
 
 # .env file with sensible information like password
 .env
+
+dist/

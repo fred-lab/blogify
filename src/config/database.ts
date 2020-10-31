@@ -9,6 +9,13 @@ const options: ConnectionOptions = {
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
+  logging: "all",
+  entities: [__dirname + "/../entity/*.ts"],
+  migrations: [__dirname + "/../migration/*.ts"],
+  cli: {
+    entitiesDir: __dirname + "/../entity",
+    migrationsDir: __dirname + "/../migration",
+  },
 };
 
 export default async () => await createConnection(options);
