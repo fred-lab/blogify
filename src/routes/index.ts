@@ -1,6 +1,6 @@
 import express from "express";
 import { homepage } from "../controllers/homepage";
-import { login, logout, create } from "../controllers/user";
+import { login, logout, create, user } from "../controllers/user";
 import { isAuthenticate } from "../middlewares/authenticate";
 
 export default class Routes {
@@ -27,12 +27,8 @@ export default class Routes {
     // /** GET User logout */
     this.router.get("/logout", logout);
 
-    // /** test */
-    // this.router.get("/test", (req, res) => {
-    //   debug("auth res", req.session);
-
-    //   return res.json("auth route");
-    // });
+    /* GET Find an user */
+    this.router.get("/user/:id", user);
   }
 
   public getRouter(): any {

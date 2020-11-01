@@ -1,9 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { getManager } from "typeorm";
+import { getManager, getRepository } from "typeorm";
 import { User } from "../entity/user";
-import createDebug from "debug";
-
-const debug = createDebug("blogify:UserController");
+import { authenticate } from "../services/security";
 
 const create = async (req: Request, res: Response) => {
   try {
@@ -26,17 +24,62 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
-const login = (req: Request, res: Response) => {
-  const { email, password } = req.body;
+const login = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
 
-  debug("login", email, password);
+    const user = await getRepository(User).findOne({ where: { email: email } });
 
-  // Set data you want to have in the session
-  if (req.session) {
-    req.session.isAuth = true;
+    if (user) {
+      const isAuth = await authenticate(password, user);
+      if (!user.isActive) {
+        return res.status(404).json({ message: "User's account is not activated." });
+      }
+      // Set data you want to have in the session
+      if (req.session && isAuth) {
+        req.session.isAuth = true;
+        return res.json({
+          message: "Authenticated",
+          user: {
+            id: user.id,
+            firstname: user.firstName,
+            lastname: user.lastName,
+            email: user.email,
+            role: user.role,
+          },
+        });
+      } else {
+        return res.status(404).json({ message: "Not Authenticated." });
+      }
+    } else {
+      return res.status(404).json({ message: "User not found." });
+    }
+  } catch (error) {
+    return res.status(404).json({ message: "Unabled to authenticate this user." });
   }
+};
 
-  return res.json({ message: "Authenticated" });
+const user = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const user = await getRepository(User).findOneOrFail(id);
+
+    if (user) {
+      return res.json({
+        user: {
+          id: user.id,
+          firstname: user.firstName,
+          lastname: user.lastName,
+          email: user.email,
+          role: user.role,
+        },
+      });
+    } else {
+      return res.status(404).json({ message: "User not found." });
+    }
+  } catch (error) {
+    return res.status(404).json({ message: "Unabled to authenticate this user." });
+  }
 };
 
 const logout = (req: Request, res: Response, next: NextFunction) => {
@@ -48,4 +91,4 @@ const logout = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export { login, logout, create };
+export { login, logout, create, user };
