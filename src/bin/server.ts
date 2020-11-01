@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-import App from "../app";
+import app from "../app";
 import createDebug from "debug";
 import http from "http";
 import createDatabaseConnection from "../config/database";
@@ -14,12 +14,12 @@ const debug = createDebug("blogify:server");
  * Get port from environment and store in Express.
  */
 const port = process.env.APP_PORT || "3000";
+app.set("port", port);
 
 /**
  * Create HTTP server.
  */
-const app = new App(port);
-const server = http.createServer(app.getApp());
+const server = http.createServer(app);
 
 /**
  * Connect to database

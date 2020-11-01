@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import HttpException from "../exception/HttpException";
 
 /**
  * Check if the request is authenticate or not
@@ -8,7 +9,7 @@ import { Request, Response, NextFunction } from "express";
  */
 const isAuthenticate = (req: Request, res: Response, next: NextFunction) => {
   if (!req.session || !req.session.isAuth) {
-    const err = new Error("Not Authenticate");
+    const err = new HttpException("Not Authenticate", 401, "error");
     res.status(401);
     next(err);
   }
