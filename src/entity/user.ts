@@ -28,5 +28,6 @@ export class User {
   @BeforeInsert()
   async updateDates() {
     this.password = await hash(this.password);
+    console.log(this.password);
   }
 }

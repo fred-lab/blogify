@@ -1,8 +1,6 @@
 import express from "express";
-// const router = express.Router();
-// import debug from ("debug")("blogify:server");
 import { homepage } from "../controllers/homepage";
-import { login, logout } from "../controllers/user";
+import { login, logout, create } from "../controllers/user";
 import { isAuthenticate } from "../middlewares/authenticate";
 
 export default class Routes {
@@ -18,6 +16,8 @@ export default class Routes {
     this.router.get("/", homepage);
     /* POST User login */
     this.router.post("/login", login);
+    /* POST Create user */
+    this.router.post("/user", create);
   }
 
   private privateRoute(): void {
