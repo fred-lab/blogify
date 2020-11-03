@@ -68,5 +68,6 @@ dist/
 var/*
 
 public/*
+!public/.gitkeep
 
 .vscode
