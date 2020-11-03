@@ -1,11 +1,9 @@
-import React from 'react';
-import Login from './auth/login';
+import React, { useContext } from 'react';
+import Login from './auth/Login';
+import AuthContext from './auth/authContext';
+import Dashboard from './dashboard/Dashboard';
 
 export default function Blogify() {
-  return (
-    <div>
-      <h2>React</h2>
-      <Login />
-    </div>
-  );
+  const { user } = useContext(AuthContext);
+  return <div>{user.isAuth ? <Dashboard /> : <Login />}</div>;
 }
