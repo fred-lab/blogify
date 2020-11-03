@@ -5,7 +5,9 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "prettier",
+        "prettier/react"
     ],
     "parserOptions": {
         "ecmaFeatures": {

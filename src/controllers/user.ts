@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from "express";
-import { getManager, getRepository } from "typeorm";
-import { User } from "../entity/user";
-import { authenticate } from "../services/security";
+import { NextFunction, Request, Response } from 'express';
+import { getManager, getRepository } from 'typeorm';
+import { User } from '../entity/user';
+import { authenticate } from '../services/security';
 
 const create = async (req: Request, res: Response) => {
   try {
@@ -18,9 +18,13 @@ const create = async (req: Request, res: Response) => {
 
     await em.save(user);
 
-    return res.status(201).json("User created successfully");
+    return res.status(201).json('User created successfully');
   } catch (error) {
-    return res.status(404).json(`Unable to create the user. ERROR n° ${error.code} = ${error}. ${error.detail}`);
+    return res
+      .status(404)
+      .json(
+        `Unable to create the user. ERROR n° ${error.code} = ${error}. ${error.detail}`,
+      );
   }
 };
 
@@ -33,14 +37,17 @@ const login = async (req: Request, res: Response) => {
     if (user) {
       const isAuth = await authenticate(password, user);
       if (!user.isActive) {
-        return res.status(404).json({ message: "User's account is not activated." });
+        return res
+          .status(404)
+          .json({ message: "User's account is not activated." });
       }
       // Set data you want to have in the session
       if (req.session && isAuth) {
         req.session.isAuth = true;
         return res.json({
-          message: "Authenticated",
+          message: 'Authenticated',
           user: {
+            isAuth: true,
             id: user.id,
             firstname: user.firstName,
             lastname: user.lastName,
@@ -49,13 +56,15 @@ const login = async (req: Request, res: Response) => {
           },
         });
       } else {
-        return res.status(404).json({ message: "Not Authenticated." });
+        return res.status(404).json({ message: 'Not Authenticated.' });
       }
     } else {
-      return res.status(404).json({ message: "User not found." });
+      return res.status(404).json({ message: 'User not found.' });
     }
   } catch (error) {
-    return res.status(404).json({ message: "Unabled to authenticate this user." });
+    return res
+      .status(404)
+      .json({ message: 'Unabled to authenticate this user.' });
   }
 };
 
@@ -75,10 +84,12 @@ const user = async (req: Request, res: Response) => {
         },
       });
     } else {
-      return res.status(404).json({ message: "User not found." });
+      return res.status(404).json({ message: 'User not found.' });
     }
   } catch (error) {
-    return res.status(404).json({ message: "Unabled to authenticate this user." });
+    return res
+      .status(404)
+      .json({ message: 'Unabled to authenticate this user.' });
   }
 };
 
@@ -87,7 +98,7 @@ const logout = (req: Request, res: Response, next: NextFunction) => {
     if (err) {
       next(err);
     }
-    return res.json({ message: "Logout successfully" });
+    return res.json({ message: 'Logout successfully' });
   });
 };
 

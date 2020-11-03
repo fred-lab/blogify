@@ -11,10 +11,7 @@ const config = {
   mode: 'development',
   target: 'web',
   entry: {
-    app: [
-      `${sourcePath}/js/main.jsx`,
-      `${sourcePath}/scss/main.scss`,
-    ],
+    app: [`${sourcePath}/js/main.jsx`, `${sourcePath}/scss/main.scss`],
   },
   optimization: {
     splitChunks: {
@@ -43,7 +40,7 @@ const config = {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: outputPath,
-    publicPath: '/assets/',
+    publicPath: '/public/',
     port: 8080,
     writeToDisk: true,
   },

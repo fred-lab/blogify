@@ -1,12 +1,20 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { AuthProvider } from './components/auth/authContext';
 
-import "../scss/main.scss";
+import '../scss/main.scss';
 
-import Welcome from "./components/Welcome";
+import Blogify from './components/Blogify';
 
 // eslint-disable-next-line no-console
-console.log("Init Blogify!!");
+console.log('Init Blogify!!');
+
+const Providers = ({ children }) => <AuthProvider>{children}</AuthProvider>;
 
 /** App */
-ReactDOM.render(<Welcome />, document.getElementById("app"));
+ReactDOM.render(
+  <Providers>
+    <Blogify />
+  </Providers>,
+  document.getElementById('app'),
+);
