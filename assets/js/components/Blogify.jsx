@@ -5,5 +5,5 @@ import Dashboard from './dashboard/Dashboard';
 
 export default function Blogify() {
   const { user } = useContext(AuthContext);
-  return <div>{user.isAuth ? <Dashboard /> : <Login />}</div>;
+  return <>{user.isAuth ? <Dashboard /> : <Login />}</>;
 }

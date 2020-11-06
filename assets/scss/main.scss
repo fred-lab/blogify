@@ -4,3 +4,29 @@
   margin: 0;
   padding: 0;
 }
+
+// Colors
+$grey-light: #d6d6d6;
+$grey-soft: #888888;
+$purple-soft: #a548eb;
+$purple-medium: #8a0fe6;
+$blue-medium: #2f99d2;
+$blue-dark: #0a8fd6;
+$red-soft: #f86868;
+$white: #fff;
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: rgb(184, 38, 236);
+  background: linear-gradient(
+    61deg,
+    rgba(184, 38, 236, 1) 0%,
+    rgba(99, 188, 231, 1) 100%
+  );
+  width: 100vw;
+  height: 100vh;
+}
+
+// Import
+@import 'components.scss';
+@import 'animations.scss';
