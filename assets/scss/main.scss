@@ -6,13 +6,18 @@
 }
 
 // Colors
+$grey-lighter: #fafafa;
 $grey-light: #d6d6d6;
 $grey-soft: #888888;
 $purple-soft: #a548eb;
 $purple-medium: #8a0fe6;
-$blue-medium: #2f99d2;
-$blue-dark: #0a8fd6;
+$blue-light: #2f99d2;
+$blue-medium: #0a8fd6;
+$blue-dark: #283144;
+$blue-darker: #212939;
 $red-soft: #f86868;
+$black-light: #373a36;
+$black-soft: #1f1f1f;
 $white: #fff;
 
 body {
@@ -28,5 +33,6 @@ body {
 }
 
 // Import
+@import 'layout.scss';
 @import 'components.scss';
 @import 'animations.scss';

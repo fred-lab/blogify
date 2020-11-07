@@ -1,26 +1,15 @@
-import React, { useContext } from 'react';
-import { logout } from '../../api';
-import { LOGOUT } from '../auth/authReducer';
-import AuthContext from '../auth/authContext';
+import React from 'react';
+import MainNav from './partials/Main-nav';
+import HeaderNav from './partials/Header-nav';
 
 export default function Dashboard() {
-  const { dispatch } = useContext(AuthContext);
-  const onLogout = async (e) => {
-    e.preventDefault();
-
-    const response = await logout();
-
-    if (response.ok) {
-      dispatch({ type: LOGOUT });
-    }
-  };
-
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <button type="button" onClick={onLogout}>
-        Logout
-      </button>
-    </div>
+    <section className="dashboard-container">
+      <MainNav />
+      <section className="dashbord-main">
+        <HeaderNav />
+        <main>Contenu</main>
+      </section>
+    </section>
   );
 }
