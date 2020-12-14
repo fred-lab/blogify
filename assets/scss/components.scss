@@ -209,7 +209,8 @@
   .title {
     height: 8em;
     display: flex;
-    justify-content: center;
+    // justify-content: center;
+    padding-left: 1em;
     align-items: center;
 
     h1 {
@@ -228,6 +229,19 @@
       fill: $white;
       width: 2em;
       transition: all 0.3s cubic-bezier(0.73, 0.02, 0.38, 0.99);
+    }
+
+    a {
+      text-decoration: none;
+      color: $white;
+      font-size: 1em;
+      display: flex;
+      align-items: flex-end;
+      margin: 1em 0;
+
+      h3 {
+        padding-left: 1em;
+      }
     }
   }
 }
