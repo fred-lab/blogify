@@ -1,4 +1,4 @@
-version: "2.4"
+version: '2.4'
 
 services:
   express:
@@ -16,7 +16,7 @@ services:
       - ./:/home/docker:rw
     ports:
       - ${APP_PORT}:${APP_PORT}
-    command: "npm run dev"
+    command: 'npm run server:dev'
 
   redis:
     env_file: .env

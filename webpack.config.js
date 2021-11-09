@@ -26,7 +26,7 @@ const config = {
     },
   },
   output: {
-    filename: '[name].[hash].js',
+    filename: '[name].[fullhash].js',
     path: outputPath,
     publicPath: '/',
   },
@@ -39,10 +39,36 @@ const config = {
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: outputPath,
-    publicPath: '/public/',
+    host: '0.0.0.0',
     port: 8080,
-    writeToDisk: true,
+    hot: true,
+    client: {
+      logging: 'verbose',
+      overlay: true,
+      progress: true,
+    },
+    devMiddleware: {
+      publicPath: path.join(__dirname, 'public'),
+      writeToDisk: true,
+    },
+    allowedHosts: 'all',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+      'Access-Control-Allow-Methods': '*',
+    },
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    watchFiles: ['public/**/*'],
+    // proxy: {
+    //   '*': {
+    //     target: 'http://localhost:3000',
+    //     // ws: true,
+    //     secure: false,
+    //     changeOrigin: true,
+    //   },
+    // },
   },
   module: {
     rules: [
