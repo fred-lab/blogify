@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import HttpException from '../exception/HttpException';
 import { getManager, getRepository } from 'typeorm';
 import { User } from '../entity/user';
 import { authenticate } from '../services/security';
@@ -20,11 +21,17 @@ const create = async (req: Request, res: Response) => {
 
     return res.status(201).json('User created successfully');
   } catch (error) {
-    return res
-      .status(404)
-      .json(
-        `Unable to create the user. ERROR n° ${error.code} = ${error}. ${error.detail}`,
-      );
+    if (error instanceof HttpException){
+      return res
+        .status(404)
+        .json(
+          `Unable to create the user. ERROR n° ${error.code} = ${error}. ${error.message}`,
+        );
+    }
+    return res.status(404)
+    .json(
+      `Unable to create the user.`,
+    );
   }
 };
 

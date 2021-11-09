@@ -21,7 +21,10 @@ const authenticate = async (value: string, user: User): Promise<boolean> => {
   try {
     return bcrypt.compare(value, user.password);
   } catch (error) {
-    throw new Error(error);
+    if(typeof error === 'string'){
+      throw new Error(error);
+    }
+    throw new Error()
   }
 };
 
