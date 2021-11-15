@@ -1,0 +1,18 @@
+@import '../../../../../scss/main.scss';
+
+.toolbar__container {
+  background-color: $grey-soft;
+
+  .toolbar__button {
+    background-color: $white;
+    height: 2em;
+    width: 2em;
+    padding: 0.2em;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $blue-light;
+    }
+  }
+}

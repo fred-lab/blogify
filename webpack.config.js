@@ -61,14 +61,6 @@ const config = {
       directory: path.join(__dirname, 'public'),
     },
     watchFiles: ['public/**/*'],
-    // proxy: {
-    //   '*': {
-    //     target: 'http://localhost:3000',
-    //     // ws: true,
-    //     secure: false,
-    //     changeOrigin: true,
-    //   },
-    // },
   },
   module: {
     rules: [

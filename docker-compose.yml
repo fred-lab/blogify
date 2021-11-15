@@ -19,7 +19,7 @@ services:
     networks:
       blogify:
         ipv4_address: 172.30.0.10
-    command: 'npm run server:dev'
+    command: 'npm run watch'
 
   redis:
     env_file: .env
