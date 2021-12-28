@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { createEditor, Transforms, Editor } from 'slate';
-import { Slate, Editable, withReact, DefaultElement } from 'slate-react';
+import { createEditor } from 'slate';
+import { Slate, Editable, withReact } from 'slate-react';
 import { withHistory } from 'slate-history';
 import getElements from './Element';
 import getLeaf from './Leaf';
@@ -9,9 +9,13 @@ import Toolbar from './Toolbar';
 import './editor.scss';
 
 const TextEditor = () => {
-  const editor = useMemo(() => withReact(createEditor()), []);
+  const editor = useMemo(() => withReact(withHistory(createEditor())), []);
 
   const [value, setValue] = useState([
+    {
+      type: 'h1',
+      children: [{ text: 'This is the title !' }],
+    },
     {
       type: 'paragraph',
       children: [
@@ -37,7 +41,7 @@ const TextEditor = () => {
       ],
     },
     {
-      type: 'block-quote',
+      type: 'blockquote',
       children: [{ text: 'A wise quote.' }],
     },
     {
@@ -58,10 +62,7 @@ const TextEditor = () => {
     <Slate editor={editor} value={value} onChange={(text) => editText(text)}>
       <Toolbar />
       {/* Editable is the component that renders the document hierarchy for editing */}
-      <Editable
-        renderElement={renderElement}
-        renderLeaf={(props) => getLeaf(props)}
-      />
+      <Editable renderElement={renderElement} renderLeaf={renderLeaf} />
     </Slate>
   );
 };
